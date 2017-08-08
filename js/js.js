@@ -84,10 +84,9 @@ function setCanvasSize() {
 	if(canvas == null)
 		return false;
 	var c_m = document.getElementById("graphContainer_minus");
-	var c_a = document.getElementById("graphContainer_absolute");	
-	//var t = document.getElementById("tableGraph");
-	c_a.width = c_m.width = canvas.width = window.innerWidth;//parseInt(window.getComputedStyle(document.body).width);
-	c_a.height = c_m.height = canvas.height = window.innerHeight - 100;// parseInt(window.getComputedStyle(document.body).height) - 150;
+	var c_a = document.getElementById("graphContainer_absolute");
+	c_a.width = c_m.width = canvas.width = window.innerWidth;
+	c_a.height = c_m.height = canvas.height = window.innerHeight - 100;
 	return true;
 }
 
@@ -147,11 +146,6 @@ function compareLikeCount(a, b){
 	if (parseInt(a.likeCount) < parseInt(b.likeCount)) return 1;
 	if (parseInt(a.likeCount) > parseInt(b.likeCount)) return -1;
 }
-
-/*function compareNumeric(a, b) {
-  if (a > b) return 1;
-  if (a < b) return -1;
-}*/
 
 function drawChart(){
 	sortChart();
@@ -267,14 +261,9 @@ function drawPlus(){
 var titleStr="Рейтинг (+)";
 var titleEnd = " (в % от общего числа ЛАЙКОВ)";	
 function drawMinus(){
-	//titleStr="Рейтинг (-)";
-	//titleEnd = " (в % от общего числа ЛАЙКОВ)";
 	var c = document.getElementById("graphContainer_plus");
 	var c_m = document.getElementById("graphContainer_minus");
 	var c_a = document.getElementById("graphContainer_absolute");
-	/*c.style.display = "none";
-	c_m.style.display = "block";
-	c_a.style.display = "none";*/
 	var sumDisCount=0;
 	var R = Math.min(c.width,c.height)*0.4;
 	var cx = c.width*0.5;
