@@ -118,52 +118,34 @@ function getStat(){
 		})
 }
 function sortChart(){	
-	var ar = new Array;
+	listVideo.sort(compareName);	
 	switch(curViewIndex){
 		case 0:
 			listVideo.sort(compareDislikeCount);
-			/*for(var i=0;i<listVideo.length;i++){
-				ar[i] = new Object;
-				ar[i].count = parseInt(listVideo[i].dislikeCount);
-				ar[i].index = i;
-			}*/
 			break;
 		case 1:
 			listVideo.sort(compareViewCount);
-			/*for(var i=0;i<listVideo.length;i++){
-				ar[i] = new Object;
-				ar[i].count = parseInt(listVideo[i].viewCount);
-				ar[i].index = i;
-			}*/
 			break;
 		case 2:
 			listVideo.sort(compareLikeCount);
-			/*for(var i=0;i<listVideo.length;i++){
-				ar[i] = new Object;
-				ar[i].count = parseInt(listVideo[i].);
-				ar[i].index = i;
-			}*/
 			break;
 	}
-	
-	/*ar.sort(compareNumeric);
-	var tmpAr = new Array;	
-	for(var i=0;i<listVideo.length;i++){
-		tmpAr[i] = new  Object;
-		tmpAr[i] = listVideo[i];
-	}*/
+}
+function compareName(a, b){
+	if (a.name > b.name) return 1;
+	if (a.name < b.name) return -1;	
 }
 function compareDislikeCount(a, b){
-	if (a.dislikeCount < b.dislikeCount) return 1;
-	if (a.dislikeCount >= b.dislikeCount) return -1;
+	if (parseInt(a.dislikeCount) < parseInt(b.dislikeCount)) return 1;
+	if (parseInt(a.dislikeCount) > parseInt(b.dislikeCount)) return -1;	
 }
 function compareViewCount(a, b){
-	if (a.viewCount <= b.viewCount) return 1;
-	if (a.viewCount > b.viewCount) return -1;
+	if (parseInt(a.viewCount) < parseInt(b.viewCount)) return 1;
+	if (parseInt(a.viewCount) > parseInt(b.viewCount)) return -1;
 }
 function compareLikeCount(a, b){
-	if (a.likeCount <= b.likeCount) return 1;
-	if (a.likeCount > b.likeCount) return -1;
+	if (parseInt(a.likeCount) < parseInt(b.likeCount)) return 1;
+	if (parseInt(a.likeCount) > parseInt(b.likeCount)) return -1;
 }
 
 /*function compareNumeric(a, b) {
@@ -193,7 +175,7 @@ function transition(){
 			canvas1 = document.getElementById("graphContainer_plus");
 			canvas2 = document.getElementById("graphContainer_minus");
 			titleStr="Рейтинг (-)";
-			titleEnd = " (в % от общего числа ЛАЙКОВ)";
+			titleEnd = " (в % от общего числа ДИЗЛАЙКОВ)";
 			break;
 		case 1:			
 			canvas1 = document.getElementById("graphContainer_minus");
@@ -239,9 +221,6 @@ function drawPlus(){
 	var c = document.getElementById("graphContainer_plus");
 	var c_m = document.getElementById("graphContainer_minus");
 	var c_a = document.getElementById("graphContainer_absolute");
-	/*c.style.display = "block";
-	c_m.style.display = "none";
-	c_a.style.display = "none";*/
 	var sumLikeCount=0;
 	var R = Math.min(c.width,c.height)*0.4;
 	var cx = c.width*0.5;
