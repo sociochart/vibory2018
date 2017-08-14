@@ -342,7 +342,7 @@ function drawAbsolute(){
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
 			ctx.lineWidth = 2;
-			var curwY = wY * parseInt(listVideo[i].ratio);
+			var curwY = wY * parseFloat(listVideo[i].ratio);
 			ctx.fillStyle = listVideo[i].col;
 		    ctx.fill();
 			ctx.fillRect(curX, curY-curwY, wX, curwY);	
@@ -369,7 +369,7 @@ function drawAbsolute(){
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
 			ctx.lineWidth = 2;
-			var curwY = wY * parseInt(listVideo[i].ratio);
+			var curwY = wY * parseFloat(listVideo[i].ratio);
 			ctx.fillStyle = "#999999";
 		    ctx.fill();
 			ctx.fillRect(curX, curY, wX, curwY);	
