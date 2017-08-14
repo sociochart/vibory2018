@@ -315,7 +315,7 @@ function drawAbsolute(){
 	var c_m = document.getElementById("graphContainer_minus");
 	var c_a = document.getElementById("graphContainer_absolute");
 	var sumLikeCount=0;
-	var R = Math.min(c_m.width,c_m.height)*0.4;
+	//var R = Math.min(c_m.width,c_m.height)*0.4;
 	var cx = c_a.width*0.5;
 	var cy = c_a.height*0.5;
 	for(var i=0;i<listVideo.length;i++){		
@@ -335,6 +335,7 @@ function drawAbsolute(){
 		var wY = (c_a.height-150);
 		var curX = 50 + wX*0.5;
 		var curY = c_a.height-50;
+		var R = wX*2;
 		for(var i=0;i<listVideo.length;i++){	
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
@@ -344,13 +345,12 @@ function drawAbsolute(){
 		    ctx.fill();
 			ctx.fillRect(curX, curY-curwY, wX, curwY);	
 			ctx.closePath();			
-			ctx.stroke();						
-			
+			ctx.stroke();			
 			ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
 			ctx.fillStyle = listVideo[i].col;
 			ctx.textAlign = "center";			
-			ctx.fillText(listVideo[i].viewCount,curX+wX*0.5,curY-curwY-5); 
-			
+			//ctx.fillText(listVideo[i].likeCount,curX+wX*0.5,curY-curwY-5); 
+			ctx.fillText(33000000,curX+wX*0.5,curY-curwY-5); 			
 			curX = curX + 2*wX
 		}		
 	}
