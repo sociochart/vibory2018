@@ -224,8 +224,8 @@ function drawPlus(){
 	var cy = c.height*0.5;
 	for(var i=0;i<listVideo.length;i++){		
 		sumLikeCount = sumLikeCount + parseInt(listVideo[i].likeCount);
-		if(listVideo[i].likeCount==0)
-			listVideo[i].likeCount =1;
+		//if(listVideo[i].likeCount==0)
+			//listVideo[i].likeCount =1;
 		if(sumLikeCount==0)
 			sumLikeCount=1;
 	}
@@ -273,8 +273,8 @@ function drawMinus(){
 	var cy = c.height*0.5;
 	for(var i=0;i<listVideo.length;i++){		
 		sumDisCount = sumDisCount + parseInt(listVideo[i].dislikeCount);
-		if(listVideo[i].dislikeCount==0)
-			listVideo[i].dislikeCount =1;
+		//if(listVideo[i].dislikeCount==0)
+			//listVideo[i].dislikeCount =1;
 		if(sumDisCount==0)
 			sumDisCount=1;
 	}
@@ -320,8 +320,8 @@ function drawAbsolute(){
 	var cy = c_a.height*0.5;
 	for(var i=0;i<listVideo.length;i++){		
 		sumLikeCount = sumLikeCount + parseInt(listVideo[i].likeCount);
-		if(listVideo[i].likeCount==0)
-			listVideo[i].likeCount =1;
+		//if(listVideo[i].likeCount==0)
+			//listVideo[i].likeCount =1;
 		if(sumLikeCount==0)
 			sumLikeCount=1;
 	}
