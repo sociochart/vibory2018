@@ -335,7 +335,7 @@ function drawAbsolute(){
 		var wY = (c_a.height-150);
 		var curX = 50 + wX*0.5;
 		var curY = c_a.height-50;
-		var R = wX*2.4;
+		var R = wX*3;
 		for(var i=0;i<listVideo.length;i++){	
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
@@ -350,7 +350,7 @@ function drawAbsolute(){
 			ctx.fillStyle = listVideo[i].col;
 			ctx.textAlign = "center";			
 			//ctx.fillText(listVideo[i].likeCount,curX+wX*0.5,curY-curwY-5); 
-			ctx.fillText(33000000,curX+wX*0.5,curY-R-5); 			
+			ctx.fillText(33000000,curX+wX*0.5,curY+5); 			
 			curX = curX + 2*wX;
 		}		
 	}
