@@ -126,7 +126,7 @@ function sortChart(){
 			listVideo.sort(compareDislikeCount);
 			break;
 		case 1:
-			listVideo.sort(compareViewCount);
+			listVideo.sort(compareLikeCount);
 			break;
 		case 2:
 			listVideo.sort(compareLikeCount);
