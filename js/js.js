@@ -311,6 +311,51 @@ function drawAbsolute(){
 	var c = document.getElementById("graphContainer_plus");
 	var c_m = document.getElementById("graphContainer_minus");
 	var c_a = document.getElementById("graphContainer_absolute");
+	var sumLikeCount=0;
+	var R = Math.min(c_m.width,c_m.height)*0.4;
+	var cx = c_a.width*0.5;
+	var cy = c_a.height*0.5;
+	for(var i=0;i<listVideo.length;i++){		
+		sumLikeCount = sumLikeCount + parseInt(listVideo[i].likeCount);
+		if(listVideo[i].likeCount==0)
+			listVideo[i].likeCount =1;
+		if(sumLikeCount==0)
+			sumLikeCount=1;
+	}
+	for(var i=0;i<listVideo.length;i++){
+		listVideo[i].ratio = ((listVideo[i].likeCount/sumLikeCount)*100).toFixed(1);
+	}
+	if (c.getContext){
+		var ctx = c_a.getContext("2d");
+		ctx.clearRect(0, 0, c_a.width, c_a.height);		
+		var wX = (c_a.width-100)/(2*listVideo.length);
+		var wY = (c_a.height-150);
+		var curX = 50 + wX*0.5;
+		var curY = c_a.height-50;
+		for(var i=0;i<listVideo.length;i++){	
+			ctx.beginPath();
+			ctx.strokeStyle = "#fff";
+			ctx.lineWidth = 2;
+			var curwY = wY * listVideo[i].ratio;
+			ctx.fillStyle = listVideo[i].col;
+		    ctx.fill();
+			ctx.fillRect(curX, curY-curwY, wX, curwY);	
+			ctx.closePath();			
+			ctx.stroke();						
+			
+			ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
+			ctx.fillStyle = listVideo[i].col;
+			ctx.textAlign = "center";			
+			ctx.fillText(listVideo[i].viewCount,curX+wX*0.5,curY-curwY-5); 
+			
+			curX = curX + 2*wX
+		}		
+	}
+}
+function drawAbsoluteCount(){
+	var c = document.getElementById("graphContainer_plus");
+	var c_m = document.getElementById("graphContainer_minus");
+	var c_a = document.getElementById("graphContainer_absolute");
 	var maxViewCount=0;
 	var R = Math.min(c_m.width,c_m.height)*0.4;
 	var cx = c_a.width*0.5;
