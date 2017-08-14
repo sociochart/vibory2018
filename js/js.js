@@ -94,6 +94,7 @@ function getStat(){
 	if(listVideo== undefined || listVideo.length<=0)
 		return;
 	var _list = '';
+	listVideo.sort(compareName);
 	for(var i=0;i<listVideo.length;i++){
 		var zpt = ",";
 		if(i==listVideo.length-1)
@@ -105,6 +106,8 @@ function getStat(){
 	success: function(data){ 
 				//var data = JSON.parse(_data);	
 				var ar = data.items;
+				listVideo.sort(compareName);
+				var _lv = listVideo;
 				for(var i=0;i<ar.length;i++){
 					listVideo[i].likeCount =  parseInt(ar[i].statistics.likeCount);
 					listVideo[i].dislikeCount =  parseInt(ar[i].statistics.dislikeCount);
@@ -174,7 +177,7 @@ function transition(){
 		case 1:			
 			canvas1 = document.getElementById("graphContainer_minus");
 			canvas2 = document.getElementById("graphContainer_absolute");
-			titleStr="Рейтинг (просмотры)";
+			titleStr="Рейтинг (ЛАЙКИ)";
 	titleEnd = "";
 			break;
 		case 2:			
