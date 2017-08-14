@@ -111,7 +111,8 @@ function getStat(){
 				for(var i=0;i<ar.length;i++){
 					listVideo[i].likeCount =  parseInt(ar[i].statistics.likeCount);
 					listVideo[i].dislikeCount =  parseInt(ar[i].statistics.dislikeCount);
-					listVideo[i].viewCount = parseInt(ar[i].statistics.viewCount);	
+					listVideo[i].viewCount = parseInt(ar[i].statistics.viewCount);
+					listVideo[i].delta = parseInt(ar[i].statistics.likeCount) - parseInt(ar[i].statistics.dislikeCount);						
 				}
 				drawChart();
 			},
@@ -126,7 +127,7 @@ function sortChart(){
 			listVideo.sort(compareDislikeCount);
 			break;
 		case 1:
-			listVideo.sort(compareLikeCount);
+			listVideo.sort(compareDeltaCount);
 			break;
 		case 2:
 			listVideo.sort(compareLikeCount);
@@ -148,6 +149,10 @@ function compareViewCount(a, b){
 function compareLikeCount(a, b){
 	if (parseInt(a.likeCount) < parseInt(b.likeCount)) return 1;
 	if (parseInt(a.likeCount) > parseInt(b.likeCount)) return -1;
+}
+function compareDeltaCount(a, b){
+	if (parseInt(a.delta) < parseInt(b.delta)) return 1;
+	if (parseInt(a.delta) > parseInt(b.delta)) return -1;
 }
 
 function drawChart(){
@@ -177,7 +182,7 @@ function transition(){
 		case 1:			
 			canvas1 = document.getElementById("graphContainer_minus");
 			canvas2 = document.getElementById("graphContainer_absolute");
-			titleStr="Рейтинг (ЛАЙКИ)";
+			titleStr="Рейтинг (ЛАЙКИ-ДИЗЛАЙКИ)";
 	titleEnd = "";
 			break;
 		case 2:			
@@ -254,7 +259,7 @@ function drawPlus(){
 				ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
 				ctx.fillStyle = "#fff";
 				ctx.textAlign = "center";			
-				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-30)*Math.sin(lastAngle+angle*0.5)); 
+				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-46)*Math.sin(lastAngle+angle*0.5)); 
 			}
 			
 			lastAngle = angle + lastAngle;			
@@ -303,7 +308,7 @@ function drawMinus(){
 				ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
 				ctx.fillStyle = "#fff";
 				ctx.textAlign = "center";			
-				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-30)*Math.sin(lastAngle+angle*0.5)); 
+				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-46)*Math.sin(lastAngle+angle*0.5)); 
 			}
 			
 			lastAngle = angle + lastAngle;			
@@ -314,33 +319,30 @@ function drawAbsolute(){
 	var c = document.getElementById("graphContainer_plus");
 	var c_m = document.getElementById("graphContainer_minus");
 	var c_a = document.getElementById("graphContainer_absolute");
-	var sumLikeCount=0;
+	var maxLikeCount=0;
 	//var R = Math.min(c_m.width,c_m.height)*0.4;
 	var cx = c_a.width*0.5;
 	var cy = c_a.height*0.5;
-	for(var i=0;i<listVideo.length;i++){		
-		sumLikeCount = sumLikeCount + parseInt(listVideo[i].likeCount);
-		//if(listVideo[i].likeCount==0)
-			//listVideo[i].likeCount =1;
-		if(sumLikeCount==0)
-			sumLikeCount=1;
+	for(var i=0;i<listVideo.length;i++){				
+		if(maxLikeCount<parseInt(listVideo[i].likeCount))
+			maxLikeCount = parseInt(listVideo[i].likeCount);
 	}
 	for(var i=0;i<listVideo.length;i++){
-		listVideo[i].ratio = ((listVideo[i].likeCount/sumLikeCount)*100).toFixed(1);
+		listVideo[i].ratio = (listVideo[i].likeCount/maxLikeCount).toFixed(1);
 	}
 	if (c.getContext){
 		var ctx = c_a.getContext("2d");
 		ctx.clearRect(0, 0, c_a.width, c_a.height);		
 		var wX = (c_a.width-100)/(2*listVideo.length);
-		var wY = (c_a.height-150);
+		var wY = (c_a.height*.5)-40;
 		var curX = 50 + wX*0.5;
-		var curY = c_a.height-50;
+		var curY = c_a.height*.5;//c_a.height-50;
 		var R = wX*3;
 		for(var i=0;i<listVideo.length;i++){	
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
 			ctx.lineWidth = 2;
-			var curwY = wY * listVideo[i].ratio;
+			var curwY = wY * parseInt(listVideo[i].ratio);
 			ctx.fillStyle = listVideo[i].col;
 		    ctx.fill();
 			ctx.fillRect(curX, curY-curwY, wX, curwY);	
@@ -349,10 +351,36 @@ function drawAbsolute(){
 			ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
 			ctx.fillStyle = listVideo[i].col;
 			ctx.textAlign = "center";			
-			//ctx.fillText(listVideo[i].likeCount,curX+wX*0.5,curY-curwY-5); 
-			ctx.fillText(33000000,curX+wX*0.5,curY+5); 			
+			ctx.fillText(listVideo[i].likeCount,curX+wX*0.5,curY-curwY -5); 			
 			curX = curX + 2*wX;
-		}		
+		}	
+		var maxDisCount=0;
+		for(var i=0;i<listVideo.length;i++){					
+			if(maxDisCount<parseInt(listVideo[i].dislikeCount))
+				maxDisCount=parseInt(listVideo[i].dislikeCount);
+		}
+		for(var i=0;i<listVideo.length;i++){
+			listVideo[i].ratio = (listVideo[i].dislikeCount/maxDisCount).toFixed(1);
+		}
+		
+		var curX = 50 + wX*0.5;
+		//var curY = wY+40;
+		for(var i=0;i<listVideo.length;i++){	
+			ctx.beginPath();
+			ctx.strokeStyle = "#fff";
+			ctx.lineWidth = 2;
+			var curwY = wY * parseInt(listVideo[i].ratio);
+			ctx.fillStyle = "#999999";
+		    ctx.fill();
+			ctx.fillRect(curX, curY, wX, curwY);	
+			ctx.closePath();			
+			ctx.stroke();
+			ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
+			ctx.fillStyle = "#666666";
+			ctx.textAlign = "center";			
+			ctx.fillText(listVideo[i].dislikeCount,curX+wX*0.5,curY+curwY+25); 	
+			curX = curX + 2*wX;
+		}	
 	}
 }
 function drawAbsoluteCount(){
