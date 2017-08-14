@@ -2,7 +2,7 @@ body, html{ background-color:#fff}
 a { text-decoration:underline}
 a:hover{ cursor:pointer}
 
-#title{ width:100%; text-align:center; font-family:Tahoma, Geneva, sans-serif; font-size:16pt; font-weight:bold; padding:30px 0px;}
+#title{ width:100%; text-align:center; font-family:Tahoma, Geneva, sans-serif; font-size:16pt; font-weight:bold; padding:10px 0px;}
 
 #chartName{ width:20%; min-width:300px; padding:10px; vertical-align:middle;}
 .chartNameContainer{ display:table; width:100%; text-align:left; margin-bottom:6px; vertical-align:middle;}
