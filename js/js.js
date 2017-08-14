@@ -106,8 +106,8 @@ function getStat(){
 	success: function(data){ 
 				//var data = JSON.parse(_data);	
 				var ar = data.items;
-				listVideo.sort(compareName);
 				var _lv = listVideo;
+				listVideo.sort(compareName);				
 				for(var i=0;i<ar.length;i++){
 					listVideo[i].likeCount =  parseInt(ar[i].statistics.likeCount);
 					listVideo[i].dislikeCount =  parseInt(ar[i].statistics.dislikeCount);
