@@ -246,10 +246,7 @@ function drawPlus(){
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
 			ctx.lineWidth = 2;
-			var lk = parseInt(listVideo[i].likeCount);
-			if(lk==0)
-				lk=1;
-			var angle = 2*Math.PI*(lk/sumLikeCount);
+			var angle = 2*Math.PI*(parseInt(listVideo[i].likeCount)/sumLikeCount);
 			ctx.moveTo(cx,cy);
 			ctx.arc(cx,cy,R,lastAngle,angle+lastAngle);			
 			ctx.closePath();
