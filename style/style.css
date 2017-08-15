@@ -1,8 +1,8 @@
-body, html{ background-color:#fff}
+body, html{ background-color:#fff; padding:0px; margin:0px}
 a { text-decoration:underline}
 a:hover{ cursor:pointer}
 
-#title{ width:100%; text-align:center; font-family:Tahoma, Geneva, sans-serif; font-size:16pt; font-weight:bold; padding:10px 0px;}
+#title{ width:100%; text-align:center; font-family:Tahoma, Geneva, sans-serif; font-size:16pt; font-weight:bold; padding:10px 0px 0px 0px;}
 
 #chartName{ width:20%; min-width:300px; padding:10px; vertical-align:middle;}
 .chartNameContainer{ display:table; width:100%; text-align:left; margin-bottom:6px; vertical-align:middle;}
@@ -10,9 +10,8 @@ a:hover{ cursor:pointer}
 .chartNameName{ font-family:Tahoma, Geneva, sans-serif; font-size:14pt; font-weight:bold; padding-top:6pt;}
 .chartNameName span{ display:block; font-size:14px; color:#666}
 
-.graphContainer{ width:calc(100% - 20px); margin-bottom:10px;}
+.graphContainer{}
 #graphContainer_plus, #graphContainer_minus, #graphContainer_absolute{ position:absolute; top:0px; left:0px;opacity:0;}
-
 
 #control{width:30%; max-width:600px; }
 #ctrl{ font-size:20pt; text-decoration:none; color:#888}
