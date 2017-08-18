@@ -1,8 +1,18 @@
-var apikey = 'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
+var apikey = ' AIzaSyCbIirSn4HEfs-F4mv0LRoQM_BtYellvRM ';//'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
 var listVideo = new Array;
 
 var timerGlobal;
 function loadPage(){
+	var timerRunStr = setTimeout(function timerRunStrTick() {
+		var left = document.getElementById("str_run").offsetLeft;
+		var wh = document.getElementById("str_run").offsetWidth;
+		if(left<-wh){
+			left = window.innerWidth +20 +"px";
+		}
+		left = (left-1) +"px";
+		document.getElementById("str_run").style.left = left;
+		timerRunStr = setTimeout(timerRunStrTick, 20);
+		},20);
 	timerGlobal = setTimeout(function timerGlobalTick() {
 					getStat();
 					timerGlobal = setTimeout(timerGlobalTick, 8000);
@@ -160,7 +170,7 @@ function drawChart(){
 	var _html = '';
 	for(var i=0;i<listVideo.length;i++){
 		var ar = listVideo[i].name.split(" ");
-		_html = _html + "<div class='chartNameContainer'><div class='chartNameCol' style='background-color:"+listVideo[i].col+"'></div><div class='chartNameName'>"+ar[0]+"<span>"+ar[1] + " " + ar[2]+"</span></div></div>";
+		_html = _html + "<div class='chartNameContainer'><div class='chartNameCol' style='background-color:"+listVideo[i].col+"'><span id='chartNameCol"+i+"'></span></div><div class='chartNameName'>"+ar[0]+"<span>"+ar[1] + " " + ar[2]+"</span></div></div>";
 	}
 	document.getElementById("chartName").innerHTML = _html;
 	transition();
@@ -257,11 +267,17 @@ function drawPlus(){
 				ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
 				ctx.fillStyle = "#fff";
 				ctx.textAlign = "center";			
-				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-46)*Math.sin(lastAngle+angle*0.5)); 
-			}			
+				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-46)*Math.sin(lastAngle+angle*0.5)); 				
+			}
+			var id = "chartNameCol"+i;
+			document.getElementById(id).innerHTML = listVideo[i].ratio;				
 			lastAngle = angle + lastAngle;			
 		}		
 	}
+	var img = document.getElementById("likeIMG");
+	ctx.drawImage(img, cx-50, cy-81);
+	document.getElementById("likeIMG_grey").style.display = "none";
+	document.getElementById("dislikeIMG_grey").style.display = "none";
 }
 var titleStr="Рейтинг (+)";
 var titleEnd = " (в % от общего числа ЛАЙКОВ)";	
@@ -305,9 +321,15 @@ function drawMinus(){
 				ctx.textAlign = "center";			
 				ctx.fillText(listVideo[i].ratio,cx+(R-46)*Math.cos(lastAngle+angle*0.5), cy+(R-46)*Math.sin(lastAngle+angle*0.5)); 
 			}			
-			lastAngle = angle + lastAngle;			
+			lastAngle = angle + lastAngle;
+			var id = "chartNameCol"+i;
+			document.getElementById(id).innerHTML = listVideo[i].ratio;	
 		}		
-	}
+	}	
+	var img = document.getElementById("dislikeIMG");
+	ctx.drawImage(img, cx-50, cy-61);
+	document.getElementById("likeIMG_grey").style.display = "none";
+	document.getElementById("dislikeIMG_grey").style.display = "none";
 }
 function drawAbsolute(){
 	var c = document.getElementById("graphContainer_plus");
@@ -379,6 +401,10 @@ function drawAbsolute(){
 				dl = - dl;
 			ctx.fillText(dl,curX-20, curY+1.6*wY); 	
 			curY = curY + 2*wY;
+			var id = "chartNameCol"+i;
+			document.getElementById(id).innerHTML = '';	
 		}	
 	}
+	document.getElementById("likeIMG_grey").style.display = "block";
+	document.getElementById("dislikeIMG_grey").style.display = "block";
 }
