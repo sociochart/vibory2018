@@ -1,12 +1,13 @@
-body, html{ background-color:#fff; padding:0px; margin:0px}
+body, html{ background-color:#fff; padding:0px; margin:0px;}
 a { text-decoration:underline}
 a:hover{ cursor:pointer}
 
 #title{ width:100%; text-align:center; font-family:Tahoma, Geneva, sans-serif; font-size:16pt; font-weight:bold; padding:10px 0px 0px 0px;}
 
 #chartName{ width:20%; min-width:300px; padding:10px; vertical-align:middle;}
-.chartNameContainer{ display:table; width:100%; text-align:left; margin-bottom:6px; vertical-align:middle;}
-.chartNameCol{width:30pt; height:30pt;float:left; margin-right:10px; border-radius:30pt; margin-top:8px;}
+.chartNameContainer{ display:table; width:100%; text-align:left; margin-bottom:4px; vertical-align:middle;}
+.chartNameCol{width:40pt; height:40pt;float:left; margin-right:10px; border-radius:40pt; margin-top:0px; position:relative;}
+.chartNameCol span{ color:#fff; font-weight:bold; position:absolute; width:40px; top:16px; left:5px; font-family:Helvetica; text-align:center; font-size:14px}
 .chartNameName{ font-family:Tahoma, Geneva, sans-serif; font-size:14pt; font-weight:bold; padding-top:6pt;}
 .chartNameName span{ display:block; font-size:14px; color:#666}
 
@@ -22,3 +23,5 @@ a:hover{ cursor:pointer}
 #divSet{ width:calc(100% - 	190px); text-align:right; display:inline-block}
 #del{ margin-right:30px; color:#888; font-size:10pt}
 #set{ font-size:14pt}
+
+#str_run{ position: absolute; font-family:Helvetica; font-size:30px; color:#333; overflow:hidden; white-space: nowrap; left:500px;}
