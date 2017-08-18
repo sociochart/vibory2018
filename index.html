@@ -13,7 +13,7 @@
 <div style="width:100%; text-align:center">По результатам голосования на <a href="https://www.youtube.com/watch?v=iqsc_fWFw10&list=PLRbHp1EbS8S8g6H1ZoR3appevn50DjUwZ&index=2" target="_blank">канале</a>. Результаты обновляются один раз в 8 секунд</div>
 <table width="100%" height="100%" id="tableGraph" border="0" cellspacing="0">
   <tr>
-    <td style="position:relative">
+    <td style="position:relative">    	
     	<canvas class="graphContainer" id="graphContainer_plus">Your browser does not support the HTML5 canvas tag</canvas>
         <canvas class="graphContainer" id="graphContainer_minus">Your browser does not support the HTML5 canvas tag</canvas>
         <canvas class="graphContainer" id="graphContainer_absolute">Your browser does not support the HTML5 canvas tag</canvas>
@@ -22,5 +22,16 @@
     </td>
   </tr>
 </table>
+<div style="position:relative">
+	<img id="likeIMG_grey" src="img/like_grey.png" style=" position:absolute; display:none; right:380px; top:-140px">	
+</div>
+<img id="dislikeIMG_grey" src="img/dlike_grey.png" style="position:absolute; left:40px; top:100px;display:none">
+<img id="likeIMG" src="img/like.png" style="display:none">
+<img id="dislikeIMG" src="img/dlike.png" style="display:none">
+<div id="str_run">
+Чтобы выразить свою поддержку (недоверие) потенциальному кандидату, поставьте ЛАЙК (ДИЗЛАЙК)  *******  Список ссылки на кандидаты в описании  *******  один аккаунт это один лайк или дизлайк по каждому кандидату
+</div>
+
+
 </body>
 </html>
