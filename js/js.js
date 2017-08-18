@@ -8,8 +8,8 @@ function loadPage(){
 		var wh = document.getElementById("str_run").offsetWidth;
 		if(left<-wh){
 			left = window.innerWidth +20 +"px";
-		}
-		left = (left-1) +"px";
+		}else
+			left = (left-1) +"px";
 		document.getElementById("str_run").style.left = left;
 		timerRunStr = setTimeout(timerRunStrTick, 20);
 		},20);
