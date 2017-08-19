@@ -26,7 +26,7 @@ function loadPage(){
 	var timerCurTime = setTimeout(function timerCurTimeTick() {	//4 июля 2017 года
 					var curDate = new Date();
 					var options = {year: 'numeric', month: 'long', day: 'numeric', timezone: 'UTC', hour: 'numeric',  minute: 'numeric', second: 'numeric' };					
-					var str = titleStr + " за "+curDate.toLocaleString("ru", options)+titleEnd;
+					var str = titleStr + " на "+curDate.toLocaleString("ru", options)+titleEnd;
 					document.getElementById("title").innerHTML = str;
 					timerIniCanvas = setTimeout(timerCurTimeTick, 200);					
 					},200);
@@ -137,7 +137,7 @@ function sortChart(){
 			listVideo.sort(compareDislikeCount);
 			break;
 		case 1:
-			listVideo.sort(compareDeltaCount);
+			listVideo.sort(compareLikeCount);//compareDeltaCount);
 			break;
 		case 2:
 			listVideo.sort(compareLikeCount);
@@ -183,21 +183,21 @@ function transition(){
 		case 0:			
 			canvas1 = document.getElementById("graphContainer_plus");
 			canvas2 = document.getElementById("graphContainer_minus");
-			titleStr="Рейтинг (-)";
+			titleStr="Рейтинг";
 			titleEnd = " (в % от общего числа ДИЗЛАЙКОВ)";
 			drawMinus();
 			break;
 		case 1:			
 			canvas1 = document.getElementById("graphContainer_minus");
 			canvas2 = document.getElementById("graphContainer_absolute");
-			titleStr="Рейтинг (ЛАЙКИ-ДИЗЛАЙКИ)";
+			titleStr="Рейтинг (ЛАЙКИ)";
 			titleEnd = "";
 			drawAbsolute();
 			break;
 		case 2:			
 			canvas1 = document.getElementById("graphContainer_absolute");
 			canvas2 = document.getElementById("graphContainer_plus");	
-			titleStr="Рейтинг (+)";
+			titleStr="Рейтинг";
 			titleEnd = " (в % от общего числа ЛАЙКОВ)";		
 			drawPlus();
 			break;
@@ -279,7 +279,7 @@ function drawPlus(){
 	document.getElementById("likeIMG_grey").style.display = "none";
 	document.getElementById("dislikeIMG_grey").style.display = "none";
 }
-var titleStr="Рейтинг (+)";
+var titleStr="Рейтинг";
 var titleEnd = " (в % от общего числа ЛАЙКОВ)";	
 function drawMinus(){
 	var c = document.getElementById("graphContainer_plus");
