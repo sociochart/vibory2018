@@ -346,7 +346,7 @@ function drawAbsolute(){
 			maxLikeCount = parseInt(listVideo[i].likeCount);
 	}
 	for(var i=0;i<listVideo.length;i++){
-		listVideo[i].ratio = (listVideo[i].likeCount/maxLikeCount).toFixed(1);
+		listVideo[i].ratio = (listVideo[i].likeCount/maxLikeCount).toFixed(2);
 	}
 	if (c.getContext){
 		var ctx = c_a.getContext("2d");
@@ -379,7 +379,7 @@ function drawAbsolute(){
 				maxDisCount=parseInt(listVideo[i].dislikeCount);
 		}
 		for(var i=0;i<listVideo.length;i++){
-			listVideo[i].ratio = (listVideo[i].dislikeCount/maxDisCount).toFixed(1);
+			listVideo[i].ratio = (listVideo[i].dislikeCount/maxDisCount).toFixed(2);
 		}
 		
 		var curY = 10 + wY*0.5;	
