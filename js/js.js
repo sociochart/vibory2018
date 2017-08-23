@@ -360,13 +360,13 @@ function drawMinus(){
 	ctx.font = "bold "+ parseInt(R*0.05)+"pt Tahoma";
 	ctx.fillStyle = "#888";
 	ctx.textAlign = "center";	
-	var str = "всего дизлайков: -" + sumDisCount;
+	var str = "всего дизлайков: " + sumDisCount;
 	var deltaCount = parseInt(sumDisCount) - parseInt(sumDisCountSave);	
-	if( deltaCount!=0 && sumDisCountSave!=0){
+	if( deltaCount!=0 && sumDisCountSave!=0){		
 		if(deltaCount>0)
-			deltaCount = " (-"+deltaCount+")";
+			deltaCount = " (+"+deltaCount+")";
 		if( deltaCount<0 )
-			deltaCount = " (+"+Math.abs(deltaCount)+")";
+			deltaCount = " ("+deltaCount+")";
 	}else
 		deltaCount = "";
 	str = str + deltaCount;
@@ -449,13 +449,13 @@ function drawAbsolute(){
 			ctx.fillStyle = "#666666";
 			ctx.textAlign = "right";	
 						
-			var str = "-"+listVideo[i].dislikeCount;
+			var str = listVideo[i].dislikeCount;
 			var deltaCount = parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave);	
 			if( deltaCount!=0 && listVideo[i].dislikeCountSave!=undefined){
 				if(deltaCount>0)
-					deltaCount = " (-"+deltaCount+")";
+					deltaCount = " (+"+deltaCount+")";
 				if( deltaCount<0 )
-					deltaCount = " (+"+Math.abs(deltaCount)+")";
+					deltaCount = " ("+deltaCount+")";
 			}else
 				deltaCount = "";
 			str = str + deltaCount;			
