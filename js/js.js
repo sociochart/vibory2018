@@ -118,18 +118,41 @@ function getStat(){
 	success: function(data){ 
 				var ar = data.items;			
 				listVideo.sort(compareName);				
+				var futureIndex = getFutureIndex();
+				//console.log("+++++++++++++++++++++++" + futureIndex);					
 				for(var i=0;i<ar.length;i++){
-					if(isListSaveCountUpdate){
-						listVideo[i].likeCountSave =  listVideo[i].likeCount;
-						listVideo[i].dislikeCountSave =  listVideo[i].dislikeCount;						
-					}
+					/*if(listVideo[i].likeCountSave == undefined){
+						listVideo[i].likeCountSave =  new Array;
+						listVideo[i].likeCountSave[0] = -1;
+						listVideo[i].likeCountSave[1] = -1;
+						listVideo[i].likeCountSave[2] = -1;
+						listVideo[i].dislikeCountSave = new Array;
+						listVideo[i].dislikeCountSave[0] = -1;
+						listVideo[i].dislikeCountSave[1] = -1;
+						listVideo[i].dislikeCountSave[2] = -1;
+						//listVideo[i].likeCountSaveTmp =  new Array;
+						//listVideo[i].dislikeCountSaveTmp = new Array;		
+					}*/
+					/*if(listVideo[i].likeCountSaveTmp.length==3){
+						listVideo[i].likeCountSave[futureIndex] =  listVideo[i].likeCountSaveTmp[futureIndex];
+						listVideo[i].dislikeCountSave[futureIndex] =  listVideo[i].dislikeCountSaveTmp[futureIndex];
+					}else{
+						listVideo[i].likeCountSave[futureIndex] = -1;
+						listVideo[i].dislikeCountSave[futureIndex] = -1;
+						console.log("-1");	
+					}*/
+					
+					//listVideo[i].likeCountSave[futureIndex] =  listVideo[i].likeCount;
+					//listVideo[i].dislikeCountSave[futureIndex] =  listVideo[i].dislikeCount;	
+					if(futureIndex!=1)
+						listVideo[i].likeCountSave = listVideo[i].likeCount;
+					if(futureIndex!=0)
+						listVideo[i].dislikeCountSave = listVideo[i].dislikeCount;	
 					listVideo[i].likeCount =  parseInt(ar[i].statistics.likeCount);	
 					listVideo[i].dislikeCount =  parseInt(ar[i].statistics.dislikeCount);
 					listVideo[i].viewCount = parseInt(ar[i].statistics.viewCount);
 					listVideo[i].delta = parseInt(ar[i].statistics.likeCount) - parseInt(ar[i].statistics.dislikeCount);						
-				}
-				if(isListSaveCountUpdate)
-					isListSaveCountUpdate=false;
+				}				
 				drawChart();
 			},
 			error:function(data){			
@@ -172,19 +195,34 @@ function compareDeltaCount(a, b){
 }
 
 function drawChart(){
-	sortChart();
+	sortChart();	
 	var _html = '';
 	for(var i=0;i<listVideo.length;i++){
 		var ar = listVideo[i].name.split(" ");
-		_html = _html + "<div class='chartNameContainer'><div class='chartNameCol' style='background-color:"+listVideo[i].col+"'><span id='chartNameCol"+i+"'></span></div><div class='chartNameName'>"+ar[0]+"<span>"+ar[1] + " " + ar[2]+"</span></div></div>";
+		_html = _html + "<div class='chartNameContainer'><div id='chartNameColBox"+i+"' class='chartNameCol' style='background-color:"+listVideo[i].col+"'><span id='chartNameCol"+i+"'></span></div><div class='chartNameName'>"+ar[0]+"<span>"+ar[1] + " " + ar[2]+"</span></div></div>";
 	}
-	document.getElementById("chartName").innerHTML = _html;
+	document.getElementById("chartName").innerHTML = _html;	
 	transition();
+}
+function getFutureIndex(){
+	var res;
+	switch(curViewIndex){
+		case 0:
+			res=1;
+			break;
+		case 1:
+			res=2;
+			break;
+		case 2:
+			res=0;
+			break;
+	}
+	return res;
 }
 var curViewIndex=0;
 function transition(){
 	var canvas1;
-	var canvas2;
+	var canvas2;	
 	switch(curViewIndex){
 		case 0:			
 			canvas1 = document.getElementById("graphContainer_plus");
@@ -232,10 +270,11 @@ function transition(){
 								curViewIndex=0;
 								break;
 						}
+						startEffect(curViewIndex);
 					}
 	},10);
 }
-var sumLikeCount=0;
+//var sumLikeCount=0;
 function drawPlus(){	
 	var c = document.getElementById("graphContainer_plus");
 	var c_m = document.getElementById("graphContainer_minus");
@@ -243,13 +282,15 @@ function drawPlus(){
 	var ht =  document.getElementById("chartName").getBoundingClientRect();
 	c.width = c_m.width = c_a.width = window.innerWidth - (parseInt(ht.right) - parseInt(ht.left)+20);
 	c.height = c_m.height = c_a.height = parseInt(ht.bottom) - parseInt(ht.top);	
-	var sumLikeCountSave=sumLikeCount;
-	sumLikeCount = 0;
+	//var sumLikeCountSave=sumLikeCount;
+	var sumLikeCountSave = 0;
+	var sumLikeCount = 0;
 	var R = Math.min(c.width,c.height)*0.4;
 	var cx = c.width*0.5;
 	var cy = c.height*0.5;
 	for(var i=0;i<listVideo.length;i++){		
 		sumLikeCount = sumLikeCount + parseInt(listVideo[i].likeCount);
+		sumLikeCountSave = sumLikeCountSave + parseInt(listVideo[i].likeCountSave)
 		if(sumLikeCount==0)
 			sumLikeCount=1;
 	}
@@ -287,7 +328,7 @@ function drawPlus(){
 	document.getElementById("likeIMG_grey").style.display = "none";
 	document.getElementById("dislikeIMG_grey").style.display = "none";
 	
-	ctx.font = "bold "+ parseInt(R*0.05)+"pt Tahoma";
+	ctx.font = "bold "+ parseInt(R*0.06)+"pt Tahoma";
 	ctx.fillStyle = "#888";
 	ctx.textAlign = "center";	
 	var str = "всего лайков: " + sumLikeCount;
@@ -305,7 +346,7 @@ function drawPlus(){
 }
 var titleStr="Рейтинг";
 var titleEnd = " (в % от общего числа ЛАЙКОВ)";	
-var sumDisCount=0;
+//var sumDisCount=0;
 function drawMinus(){
 	var c = document.getElementById("graphContainer_plus");
 	var c_m = document.getElementById("graphContainer_minus");
@@ -313,13 +354,15 @@ function drawMinus(){
 	var ht =  document.getElementById("chartName").getBoundingClientRect();
 	c.width = c_m.width = c_a.width = window.innerWidth - (parseInt(ht.right) - parseInt(ht.left)+20);
 	c.height = c_m.height = c_a.height = parseInt(ht.bottom) - parseInt(ht.top);	
-	var sumDisCountSave=sumDisCount;
-	sumDisCount = 0;
+	//var sumDisCountSave=sumDisCount;
+	var sumDisCountSave=0;
+	var sumDisCount = 0;
 	var R = Math.min(c.width,c.height)*0.4;
 	var cx = c.width*0.5;
 	var cy = c.height*0.5;
 	for(var i=0;i<listVideo.length;i++){		
 		sumDisCount = sumDisCount + parseInt(listVideo[i].dislikeCount);
+		sumDisCountSave = sumDisCountSave + parseInt(listVideo[i].dislikeCountSave);
 		if(sumDisCount==0)
 			sumDisCount=1;
 	}
@@ -357,7 +400,7 @@ function drawMinus(){
 	document.getElementById("likeIMG_grey").style.display = "none";
 	document.getElementById("dislikeIMG_grey").style.display = "none";
 	
-	ctx.font = "bold "+ parseInt(R*0.05)+"pt Tahoma";
+	ctx.font = "bold "+ parseInt(R*0.06)+"pt Tahoma";
 	ctx.fillStyle = "#888";
 	ctx.textAlign = "center";	
 	var str = "всего дизлайков: " + sumDisCount;
@@ -381,15 +424,21 @@ function drawAbsolute(){
 	c.width = c_m.width = c_a.width = window.innerWidth - (parseInt(ht.right) - parseInt(ht.left)+20);
 	c.height = c_m.height = c_a.height = parseInt(ht.bottom) - parseInt(ht.top);
 	var maxLikeCount=0;	
+	var sumLikeCountThis = 0;
+	var maxDisCount=0;
+	var sumDisCountThis = 0;
 	var cx = c_a.width*0.5;
 	var cy = c_a.height*0.5;
-	for(var i=0;i<listVideo.length;i++){				
+	for(var i=0;i<listVideo.length;i++){	
+		sumLikeCountThis = sumLikeCountThis + parseInt(listVideo[i].likeCount);
 		if(maxLikeCount<parseInt(listVideo[i].likeCount))
 			maxLikeCount = parseInt(listVideo[i].likeCount);
 	}
 	for(var i=0;i<listVideo.length;i++){
 		listVideo[i].ratio = (listVideo[i].likeCount/maxLikeCount).toFixed(2);
 	}
+	var deltaCountLike =0;
+	var deltaCountDis=0;
 	if (c.getContext){
 		var ctx = c_a.getContext("2d");
 		ctx.clearRect(0, 0, c_a.width, c_a.height);		
@@ -412,9 +461,17 @@ function drawAbsolute(){
 			ctx.font = "bold "+ parseInt(R*0.07)+"pt Tahoma";
 			ctx.fillStyle = listVideo[i].col;
 			ctx.textAlign = "left";
-			var str = listVideo[i].likeCount;
-			var deltaCount = parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave);	
-			if( deltaCount!=0 && listVideo[i].likeCountSave!=undefined){
+			var str = listVideo[i].likeCount;			
+			var deltaCount =  parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave);// parseInt(listVideo[i].likeCountSaveTmp[curViewIndex]) - parseInt(listVideo[i].likeCountSave[curViewIndex]);
+			/*if(!isNaN(deltaCount)){	
+				var deltaCount1 = parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave[curViewIndex]);
+				if(deltaCount==0 && deltaCount1!=0){
+					deltaCount = deltaCount1;
+					//listVideo[i].likeCountSaveTmp[effectIndex]=parseInt(listVideo[i].likeCount);
+				}
+			}*/
+			if(!isNaN(deltaCount) && deltaCount!=0 && listVideo[i].likeCountSave!=undefined){
+				deltaCountLike = deltaCountLike + deltaCount;
 				if(deltaCount>0)
 					deltaCount = " (+"+deltaCount+")";
 				if( deltaCount<0 )
@@ -424,9 +481,9 @@ function drawAbsolute(){
 			str = str + deltaCount;
 			ctx.fillText(str,curX+20, curY+1.6*wY);
 			curY = curY + 2*wY;
-		}	
-		var maxDisCount=0;
-		for(var i=0;i<listVideo.length;i++){					
+		}			
+		for(var i=0;i<listVideo.length;i++){
+			sumDisCountThis = sumDisCountThis + parseInt(listVideo[i].dislikeCount);					
 			if(maxDisCount<parseInt(listVideo[i].dislikeCount))
 				maxDisCount=parseInt(listVideo[i].dislikeCount);
 		}
@@ -434,7 +491,7 @@ function drawAbsolute(){
 			listVideo[i].ratio = (listVideo[i].dislikeCount/maxDisCount).toFixed(2);
 		}
 		
-		var curY = 10 + wY*0.5;	
+		var curY = 10 + wY*0.5;			
 		for(var i=0;i<listVideo.length;i++){	
 			ctx.beginPath();
 			ctx.strokeStyle = "#fff";
@@ -450,8 +507,16 @@ function drawAbsolute(){
 			ctx.textAlign = "right";	
 						
 			var str = listVideo[i].dislikeCount;
-			var deltaCount = parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave);	
-			if( deltaCount!=0 && listVideo[i].dislikeCountSave!=undefined){
+			var deltaCount =  parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave);//parseInt(listVideo[i].dislikeCountSaveTmp[curViewIndex]) - parseInt(listVideo[i].dislikeCountSave[curViewIndex]);	
+			/*if(!isNaN(deltaCount)){	
+				var deltaCount1 = parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave[curViewIndex]);
+				if(deltaCount==0 && deltaCount1!=0){
+					deltaCount = deltaCount1;
+					//listVideo[i].dislikeCountSaveTmp[effectIndex]=parseInt(listVideo[i].dislikeCount);
+				}
+			}*/
+			if(!isNaN(deltaCount) && deltaCount!=0 && listVideo[i].dislikeCountSave!=undefined){
+				deltaCountDis = deltaCountDis + deltaCount;
 				if(deltaCount>0)
 					deltaCount = " (+"+deltaCount+")";
 				if( deltaCount<0 )
@@ -468,6 +533,196 @@ function drawAbsolute(){
 	}
 	document.getElementById("likeIMG_grey").style.display = "block";
 	document.getElementById("dislikeIMG_grey").style.display = "block";
-	isListSaveCountUpdate = true;
+	
+	ctx.font = "bold "+ parseInt(R*0.06)+"pt Tahoma";
+	ctx.fillStyle = "#888";
+	ctx.textAlign = "right";	
+	var str = sumLikeCountThis;	
+	if( deltaCountLike!=0 && sumLikeCountThis!=0){
+		if(deltaCountLike>0)
+			deltaCountLike = " (+"+deltaCountLike+")";
+		if( deltaCount<0 )
+			deltaCountLike = " (-"+Math.abs(deltaCountLike)+")";
+	}else
+		deltaCountLike = "";
+	str = str + deltaCountLike;
+	ctx.fillText(str,2*cx-20, 2*cy - 140); 	
+	
+	ctx.textAlign = "left";	
+	var str = sumDisCountThis;	
+	if( deltaCountDis!=0 && sumDisCountThis!=0){
+		if(deltaCountDis>0)
+			deltaCountDis = " (+"+deltaCountDis+")";
+		if( deltaCountDis<0 )
+			deltaCountDis = " (-"+Math.abs(deltaCountDis)+")";
+	}else
+		deltaCountDis = "";
+	str = str + deltaCountDis;
+	ctx.fillText(str,20, 180); 
 }
-var isListSaveCountUpdate = false;
+function startEffect(effectIndex){
+	if(listVideo[0].likeCountSave==undefined )
+		return;
+	
+	listVideoEffect.splice(0,listVideoEffect.length);
+	var ctx ='';		
+	//console.log("======="+effectIndex);	
+	for(var i=0;i<listVideo.length;i++){
+		/*if(listVideo[i].likeCountSave[effectIndex]==undefined || parseInt(listVideo[i].likeCountSave[effectIndex])<0 || listVideo[i].dislikeCountSave[effectIndex]==undefined || parseInt(listVideo[i].dislikeCountSave[effectIndex])<0 || listVideo[i].likeCountSaveTmp[effectIndex]==undefined || parseInt(listVideo[i].likeCountSaveTmp[effectIndex])<0 || listVideo[i].dislikeCountSaveTmp[effectIndex]==undefined || parseInt(listVideo[i].dislikeCountSaveTmp[effectIndex])<0)
+			return;*/
+		
+		var tt = listVideo[i];
+		switch(effectIndex){
+			case 0:
+					var deltaLike = parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave);//parseInt(listVideo[i].likeCountSaveTmp[effectIndex]) - parseInt(listVideo[i].likeCountSave[effectIndex]);
+					/*var deltaLike1 = parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave[effectIndex]);
+					if(deltaLike==0 && deltaLike1!=0){
+						deltaLike = deltaLike1;
+						listVideo[i].likeCountSaveTmp[effectIndex]=parseInt(listVideo[i].likeCount);
+					}*/					
+					if(deltaLike!=0){
+						var o = new Object;
+						o.i = i;
+						o.vec = 1;
+						o.delta = deltaLike;
+						var span = document.createElement("span");
+						span.innerHTML = deltaLike;
+						o.span = span;
+						o.col = listVideo[i].col;
+						listVideoEffect.push(o);
+						//console.log("effectIndex = "+effectIndex+" |index = " + i + " |delta = " + deltaLike);
+					}//else
+						//console.log("                 0  delta = "+deltaLike);
+					//console.log(parseInt(listVideo[i].likeCount) + " - " +parseInt(listVideo[i].likeCountSave))
+					if(ctx=='')
+					 ctx = document.getElementById("graphContainer_plus").getContext("2d");
+				break;
+			case 1:
+					var deltaDisLike = parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave);//parseInt(listVideo[i].dislikeCountSaveTmp[effectIndex]) - parseInt(listVideo[i].dislikeCountSave[effectIndex]);
+					/*var deltaDisLike1 = parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave[effectIndex]);
+					if(deltaDisLike==0 && deltaDisLike!=0){
+						deltaDisLike = deltaDisLike1;
+						listVideo[i].dislikeCountSaveTmp[effectIndex]=parseInt(listVideo[i].dislikeCount);
+					}*/
+					
+					if(deltaDisLike!=0){
+						var o = new Object;
+						o.i = i;
+						o.vec = -1;
+						o.delta = deltaDisLike;
+						var span = document.createElement("span");
+						span.innerHTML = deltaDisLike;
+						o.span = span;
+						o.col = listVideo[i].col;
+						listVideoEffect.push(o);
+						//console.log("effectIndex = "+effectIndex+" |index = " + i + " |delta = " + deltaDisLike);
+					}		
+					if(ctx=='')
+					 ctx = document.getElementById("graphContainer_minus").getContext("2d");			
+				break;
+			case 2:
+				var deltaLike =  parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave);// parseInt(listVideo[i].likeCountSaveTmp[effectIndex]) - parseInt(listVideo[i].likeCountSave[effectIndex]);
+				/*var deltaLike1 = parseInt(listVideo[i].likeCount) - parseInt(listVideo[i].likeCountSave[effectIndex]);
+				if(deltaLike==0 && deltaLike1!=0){
+					deltaLike = deltaLike1;
+					listVideo[i].likeCountSaveTmp[effectIndex]=parseInt(listVideo[i].likeCount);
+				}*/				
+				var deltaDisLike =  parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave);//parseInt(listVideo[i].dislikeCountSaveTmp[effectIndex]) - parseInt(listVideo[i].dislikeCountSave[effectIndex]);
+				/*var deltaDisLike1 = parseInt(listVideo[i].dislikeCount) - parseInt(listVideo[i].dislikeCountSave[effectIndex]);
+				if(deltaDisLike==0 && deltaDisLike!=0){
+					deltaDisLike = deltaDisLike1;
+					listVideo[i].dislikeCountSaveTmp[effectIndex]=parseInt(listVideo[i].dislikeCount);
+				}*/				
+				if(deltaLike!=0){
+					var o = new Object;
+					o.i = i;
+					o.vec = 1;
+					o.delta = deltaLike;
+					var span = document.createElement("span");
+					span.innerHTML = deltaLike;	
+					o.span = span;	
+					o.col = listVideo[i].col;			
+					listVideoEffect.push(o);
+					//console.log("effectIndex = "+effectIndex+" |index = " + i + " |delta = " + deltaLike);
+				}
+				if(deltaDisLike!=0){
+					var o = new Object;
+					o.i = i;
+					o.vec = -1;
+					o.delta = deltaDisLike;
+					var span = document.createElement("span");
+					span.innerHTML = deltaDisLike;
+					o.span = span;
+					o.col = listVideo[i].col;
+					listVideoEffect.push(o);
+					//console.log("effectIndex = "+effectIndex+" |index = " + i + " |delta = " + deltaDisLike);
+				}
+				if(ctx=='')
+					ctx = document.getElementById("graphContainer_absolute").getContext("2d");				
+				break;
+		}		
+	}
+	effectTick=0;
+	currEffect =0;
+	drawEffect(ctx);
+	//console.log("=");	
+}
+var listVideoEffect = new Array;
+var effectTick = 0;
+var maxEffectTick =50;
+var countEffect =3;
+var currEffect =0;
+function drawEffect(ctx){
+	var ht =  document.getElementById("chartName").getBoundingClientRect();
+	var pt = new Object;
+	pt.w = window.innerWidth - (parseInt(ht.right) - parseInt(ht.left)+20);
+	pt.h = parseInt(ht.bottom) - parseInt(ht.top);
+	for(var i=0;i<listVideoEffect.length;i++){
+		var img;
+		var minusX;
+		var plusY = 0;
+		if(listVideoEffect[i].vec==1){
+			 img= document.getElementById("likeDarkIMG");
+			 minusX = 28;plusY=10;
+		}
+		if(listVideoEffect[i].vec==-1){
+			 img= document.getElementById("dislikeDarkIMG");
+			 minusX = 16;
+		}
+			 
+		var wY = (pt.h)/(2*listVideo.length); 
+		wY =  wY - 14/listVideo.length; 
+		var curY = 10 + wY*0.5 + parseInt(listVideoEffect[i].i)*2*wY;	
+		ctx.drawImage(img, pt.w-minusX, curY+plusY);
+	}
+	var timerEffect = setTimeout(function timerEffectTick() {		
+		for(var i=0;i<listVideoEffect.length;i++){
+			var pt =  document.getElementById("chartNameColBox"+i).getBoundingClientRect();
+			if(effectTick!=maxEffectTick){
+				var blurVol = effectTick;
+				if(effectTick>maxEffectTick/3)
+					blurVol = maxEffectTick-effectTick;
+				document.getElementById("chartNameColBox"+listVideoEffect[i].i).setAttribute("style","background-color:"+listVideoEffect[i].col+";box-shadow:0 0 "+blurVol+"px "+listVideoEffect[i].col);			
+				if(effectTick*0.5 == parseInt(effectTick*0.5))
+					document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#000";
+				else
+					document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
+			}else{
+				document.getElementById("chartNameColBox"+listVideoEffect[i].i).setAttribute("style","background-color:"+listVideoEffect[i].col);
+				document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
+			}				
+		}
+		if(effectTick<maxEffectTick){
+			timerEffect = setTimeout(timerEffectTick, 20);
+			effectTick++;
+		}else{
+			currEffect++;
+			effectTick=0;			
+			if(currEffect<countEffect)
+				timerEffect = setTimeout(timerEffectTick, 20);
+			for(var i=0;i<listVideoEffect.length;i++){
+					document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
+			}
+		}
+	},20);
+}
