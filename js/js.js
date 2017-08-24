@@ -1,4 +1,4 @@
-var apikey = 'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
+var apikey = "AIzaSyCbIirSn4HEfs-F4mv0LRoQM_BtYellvRM";//'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
 var listVideo = new Array;
 
 var timerGlobal;
@@ -669,8 +669,8 @@ function startEffect(effectIndex){
 }
 var listVideoEffect = new Array;
 var effectTick = 0;
-var maxEffectTick =50;
-var countEffect =3;
+var maxEffectTick =20;
+var countEffect =1;
 var currEffect =0;
 function drawEffect(ctx){
 	var ht =  document.getElementById("chartName").getBoundingClientRect();
@@ -697,7 +697,7 @@ function drawEffect(ctx){
 	}
 	var timerEffect = setTimeout(function timerEffectTick() {		
 		for(var i=0;i<listVideoEffect.length;i++){
-			var pt =  document.getElementById("chartNameColBox"+i).getBoundingClientRect();
+			/*var pt =  document.getElementById("chartNameColBox"+i).getBoundingClientRect();
 			if(effectTick!=maxEffectTick){
 				var blurVol = effectTick;
 				if(effectTick>maxEffectTick/3)
@@ -710,19 +710,27 @@ function drawEffect(ctx){
 			}else{
 				document.getElementById("chartNameColBox"+listVideoEffect[i].i).setAttribute("style","background-color:"+listVideoEffect[i].col);
 				document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
-			}				
+			}*/
+			if(effectTick*0.5 == parseInt(effectTick*0.5)){
+				document.getElementById("chartNameColBox"+listVideoEffect[i].i).setAttribute("style","background-color:"+listVideoEffect[i].col);
+				document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#000";
+			}else{
+				document.getElementById("chartNameColBox"+listVideoEffect[i].i).setAttribute("style","background-color:#000");
+				document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
+			}
 		}
 		if(effectTick<maxEffectTick){
-			timerEffect = setTimeout(timerEffectTick, 20);
+			timerEffect = setTimeout(timerEffectTick, 200);
 			effectTick++;
 		}else{
 			currEffect++;
 			effectTick=0;			
 			if(currEffect<countEffect)
-				timerEffect = setTimeout(timerEffectTick, 20);
+				timerEffect = setTimeout(timerEffectTick, 200);
 			for(var i=0;i<listVideoEffect.length;i++){
-					document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
+				document.getElementById("chartNameCol"+listVideoEffect[i].i).style.color = "#fff";
+				document.getElementById("chartNameColBox"+listVideoEffect[i].i).setAttribute("style","background-color:"+listVideoEffect[i].col);
 			}
 		}
-	},20);
+	},200);
 }
