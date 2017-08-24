@@ -1,4 +1,4 @@
-var apikey = "AIzaSyCbIirSn4HEfs-F4mv0LRoQM_BtYellvRM";//'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
+var apikey = 'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
 var listVideo = new Array;
 
 var timerGlobal;
