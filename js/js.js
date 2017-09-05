@@ -77,17 +77,21 @@ function iniListVideo(){
 	listVideo[8].name = "ПУТИН ВЛАДИМИР ВЛАДИМИРОВИЧ";
 	listVideo[8].col = '#3366cc';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
 	listVideo[9] = new Object;
-	listVideo[9].url = "nssj0wVkmCM";
-	listVideo[9].name = "СОБЯНИН СЕРГЕЙ СЕМЕНОВИЧ";
+	listVideo[9].url = "d800ff";
+	listVideo[9].name = "СОБЧАК КСЕНИЯ АНАТОЛЬЕВНА";
 	listVideo[9].col = '#ff9900';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
 	listVideo[10] = new Object;
-	listVideo[10].url = "tfsp8lX2ZAw";
-	listVideo[10].name = "ХОДОРКОВСКИЙ МИХАИЛ БОРИСОВИЧ";
-	listVideo[10].col = '#b82e2e';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[10].url = "nssj0wVkmCM";
+	listVideo[10].name = "СОБЯНИН СЕРГЕЙ СЕМЕНОВИЧ";
+	listVideo[10].col = '#ff9900';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
 	listVideo[11] = new Object;
-	listVideo[11].url = "UJGmE9rg15M";
-	listVideo[11].name = "ЯВЛИНСКИЙ ГРИГОРИЙ АЛЕКСЕЕВИЧ";
-	listVideo[11].col = '#316395';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[11].url = "tfsp8lX2ZAw";
+	listVideo[11].name = "ХОДОРКОВСКИЙ МИХАИЛ БОРИСОВИЧ";
+	listVideo[11].col = '#b82e2e';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[12] = new Object;
+	listVideo[12].url = "UJGmE9rg15M";
+	listVideo[12].name = "ЯВЛИНСКИЙ ГРИГОРИЙ АЛЕКСЕЕВИЧ";
+	listVideo[12].col = '#316395';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
 }
 function setCanvasSize() {
 	var canvas = document.getElementById("graphContainer_plus");
@@ -369,7 +373,7 @@ function drawMinus(){
 	for(var i=0;i<listVideo.length;i++){
 		listVideo[i].ratio = ((listVideo[i].dislikeCount/sumDisCount)*100).toFixed(1);
 	}
-	if (c.getContext){
+	if (c_m.getContext){
 		var ctx = c_m.getContext("2d");
 		ctx.clearRect(0, 0, c_m.width, c_m.height);
 		var lastAngle =0;
@@ -423,7 +427,7 @@ function drawAbsolute(){
 	var ht =  document.getElementById("chartName").getBoundingClientRect();
 	c.width = c_m.width = c_a.width = window.innerWidth - (parseInt(ht.right) - parseInt(ht.left)+20);
 	c.height = c_m.height = c_a.height = parseInt(ht.bottom) - parseInt(ht.top);
-	var maxLikeCount=0;	
+	var maxLikeCount=0;
 	var sumLikeCountThis = 0;
 	var maxDisCount=0;
 	var sumDisCountThis = 0;
@@ -439,10 +443,10 @@ function drawAbsolute(){
 	}
 	var deltaCountLike =0;
 	var deltaCountDis=0;
-	if (c.getContext){
+	if (c_a.getContext){
 		var ctx = c_a.getContext("2d");
 		ctx.clearRect(0, 0, c_a.width, c_a.height);		
-		var wX = (c_a.width*.5)-40;//(c_a.width-100)/(2*listVideo.length);
+		var wX = (c_a.width*.5)-160;//(c_a.width-100)/(2*listVideo.length);
 		var wY = (c_a.height)/(2*listVideo.length); 
 		 wY =  wY - 14/listVideo.length; 
 		var curX = c_a.width*.5;;//50 + wX*0.5;
@@ -558,7 +562,7 @@ function drawAbsolute(){
 	}else
 		deltaCountDis = "";
 	str = str + deltaCountDis;
-	ctx.fillText(str,20, 180); 
+	ctx.fillText(str,10, 140); 
 }
 function startEffect(effectIndex){
 	if(listVideo[0].likeCountSave==undefined )
