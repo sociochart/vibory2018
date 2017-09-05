@@ -77,9 +77,9 @@ function iniListVideo(){
 	listVideo[8].name = "ПУТИН ВЛАДИМИР ВЛАДИМИРОВИЧ";
 	listVideo[8].col = '#3366cc';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
 	listVideo[9] = new Object;
-	listVideo[9].url = "d800ff";
+	listVideo[9].url = "7ZzHTs6hdxE";
 	listVideo[9].name = "СОБЧАК КСЕНИЯ АНАТОЛЬЕВНА";
-	listVideo[9].col = '#ff9900';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[9].col = '#d800ff';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
 	listVideo[10] = new Object;
 	listVideo[10].url = "nssj0wVkmCM";
 	listVideo[10].name = "СОБЯНИН СЕРГЕЙ СЕМЕНОВИЧ";
