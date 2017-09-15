@@ -210,9 +210,9 @@ function getStatHistory(){
 				drawChart();
 			},
 			error: function(jqXHR, textStatus, errorThrown){
-				alert(jqXHR.status);
+				/*alert(jqXHR.status);
 				alert(jqXHR.statusText);
-				alert(jqXHR.responseText);
+				alert(jqXHR.responseText);*/
 			},							
 		})
 }
