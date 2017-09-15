@@ -186,7 +186,7 @@ function getStatHistory(){
 	var timestamUTC = Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(), d.getUTCHours(),d.getUTCMinutes(), 0, 0);
 	timestamUTC = timestamUTC*0.001 - 86400;
 	
-	$.ajax({url: "http://sociochart.000webhostapp.com/get_stat_from_server.php", type: "POST", cache: false,dataType: "text", async: true, data: {t:timestamUTC},
+	$.ajax({url: "https://sociochart.000webhostapp.com/get_stat_from_server.php", type: "POST", cache: false,dataType: "text", async: true, data: {t:timestamUTC},
 			success: function(data){ 
 				var json_ = JSON.parse(data);//stringJSON(data);
 				var s = stringJSON(json_.data);
