@@ -1,7 +1,9 @@
 var apikey = 'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
 var listVideo = new Array;
+var listVideoSave = new Array;
 
 var timerGlobal;
+
 function loadPage(){
 	var timerRunStr = setTimeout(function timerRunStrTick() {
 		var left = document.getElementById("str_run").offsetLeft;
@@ -12,11 +14,7 @@ function loadPage(){
 			left = (left-1) +"px";
 		document.getElementById("str_run").style.left = left;
 		timerRunStr = setTimeout(timerRunStrTick, 20);
-		},20);
-	timerGlobal = setTimeout(function timerGlobalTick() {
-					getStat();
-					timerGlobal = setTimeout(timerGlobalTick, 8000);
-					},8000);
+		},20);	
 	var timerIniCanvas = setTimeout(function timerIniCanvasTick() {
 					if(!setCanvasSize())
 						timerIniCanvas = setTimeout(timerIniCanvasTick, 200);
@@ -26,7 +24,11 @@ function loadPage(){
 	var timerCurTime = setTimeout(function timerCurTimeTick() {	//4 июля 2017 года
 					var curDate = new Date();
 					var options = {year: 'numeric', month: 'long', day: 'numeric', timezone: 'UTC', hour: 'numeric',  minute: 'numeric', second: 'numeric' };					
-					var str = titleStr + " на "+curDate.toLocaleString("ru", options)+titleEnd;
+					var str = '';
+					if(counterScreen>3 || counterScreen==0)
+						str = titleStr + " за последние 24 часа "+titleEnd;
+					else
+						str = titleStr + " на "+curDate.toLocaleString("ru", options)+titleEnd;
 					document.getElementById("title").innerHTML = str;
 					timerIniCanvas = setTimeout(timerCurTimeTick, 200);					
 					},200);
@@ -37,6 +39,14 @@ function ini(){
 		setCanvasSize();		
 		drawChart();
 	};
+	getStat();
+	renderAction();
+}
+function renderAction(){
+	timerGlobal = setTimeout(function timerGlobalTick() {
+					getStat();
+					timerGlobal = setTimeout(timerGlobalTick, 8000);
+					},8000);
 }
 function iniListVideo(){
 	listVideo = new Array;
@@ -106,9 +116,21 @@ function setCanvasSize() {
 	return true;
 }
 
-function getStat(){
+var counterScreen=0;
+function getStat(){ 	
 	if(listVideo== undefined || listVideo.length<=0)
 		return;
+		
+	if(counterScreen>2){
+		if(counterScreen>=5)
+			counterScreen=-1;
+		if(counterScreen==3)
+			getStatHistory();
+		else
+			drawChart();
+		return;
+	}	
+	
 	var _list = '';
 	listVideo.sort(compareName);
 	for(var i=0;i<listVideo.length;i++){
@@ -125,43 +147,89 @@ function getStat(){
 				var futureIndex = getFutureIndex();
 				//console.log("+++++++++++++++++++++++" + futureIndex);					
 				for(var i=0;i<ar.length;i++){
-					/*if(listVideo[i].likeCountSave == undefined){
-						listVideo[i].likeCountSave =  new Array;
-						listVideo[i].likeCountSave[0] = -1;
-						listVideo[i].likeCountSave[1] = -1;
-						listVideo[i].likeCountSave[2] = -1;
-						listVideo[i].dislikeCountSave = new Array;
-						listVideo[i].dislikeCountSave[0] = -1;
-						listVideo[i].dislikeCountSave[1] = -1;
-						listVideo[i].dislikeCountSave[2] = -1;
-						//listVideo[i].likeCountSaveTmp =  new Array;
-						//listVideo[i].dislikeCountSaveTmp = new Array;		
-					}*/
-					/*if(listVideo[i].likeCountSaveTmp.length==3){
-						listVideo[i].likeCountSave[futureIndex] =  listVideo[i].likeCountSaveTmp[futureIndex];
-						listVideo[i].dislikeCountSave[futureIndex] =  listVideo[i].dislikeCountSaveTmp[futureIndex];
+					if(counterScreen!=0 || listVideoSave.length==0){
+						if(futureIndex!=1)
+							listVideo[i].likeCountSave = listVideo[i].likeCount;
+						if(futureIndex!=0)
+							listVideo[i].dislikeCountSave = listVideo[i].dislikeCount;	
 					}else{
-						listVideo[i].likeCountSave[futureIndex] = -1;
-						listVideo[i].dislikeCountSave[futureIndex] = -1;
-						console.log("-1");	
-					}*/
-					
-					//listVideo[i].likeCountSave[futureIndex] =  listVideo[i].likeCount;
-					//listVideo[i].dislikeCountSave[futureIndex] =  listVideo[i].dislikeCount;	
-					if(futureIndex!=1)
-						listVideo[i].likeCountSave = listVideo[i].likeCount;
-					if(futureIndex!=0)
-						listVideo[i].dislikeCountSave = listVideo[i].dislikeCount;	
+						if(futureIndex!=1)
+							listVideo[i].likeCountSave = listVideoSave[i].likeCount;
+						if(futureIndex!=0)
+							listVideo[i].dislikeCountSave = listVideoSave[i].dislikeCount;
+					}
 					listVideo[i].likeCount =  parseInt(ar[i].statistics.likeCount);	
 					listVideo[i].dislikeCount =  parseInt(ar[i].statistics.dislikeCount);
 					listVideo[i].viewCount = parseInt(ar[i].statistics.viewCount);
 					listVideo[i].delta = parseInt(ar[i].statistics.likeCount) - parseInt(ar[i].statistics.dislikeCount);						
 				}				
-				drawChart();
+				drawChart();				
 			},
 			error:function(data){			
 			}								
 		})
+}
+function getStatHistory(){
+	if(listVideo== undefined || listVideo.length<=0)
+		return;
+	
+	listVideo.sort(compareName);
+	
+	listVideoSave.slice(0,listVideoSave.length);
+	for(var i=0;i<listVideo.length;i++){
+		listVideoSave[i] = new Object;
+		listVideoSave[i].likeCount = listVideo[i].likeCount;
+		listVideoSave[i].dislikeCount = listVideo[i].dislikeCount;
+	}
+	
+	var d = new Date();
+	var timestamUTC = Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(), d.getUTCHours(),d.getUTCMinutes(), 0, 0);
+	timestamUTC = timestamUTC*0.001 - 86400;
+	
+	$.ajax({url: "http://sociochart.000webhostapp.com/get_stat_from_server.php", type: "POST", cache: false,dataType: "text", async: true, data: {t:timestamUTC},
+			success: function(data){ 
+				var json_ = JSON.parse(data);//stringJSON(data);
+				var s = stringJSON(json_.data);
+				//'{ "name":"John", "age":30, "car":null }'
+				var ar = JSON.parse(s);
+				listVideo.sort(compareName);								
+				//console.log("+++++++++++++++++++++++" + futureIndex);					
+				for(var i=0;i<ar.length;i++){					
+					listVideo[i].likeCount = listVideo[i].likeCount - parseInt(ar[i].statistics.likeCount);
+					if(parseInt(listVideo[i].likeCount)<0)
+						listVideo[i].likeCount = 0;
+					listVideo[i].dislikeCount = listVideo[i].dislikeCount - parseInt(ar[i].statistics.dislikeCount);
+					if(parseInt(listVideo[i].dislikeCount)<0)
+						parseInt(listVideo[i].dislikeCount) = 0;
+					listVideo[i].viewCount = listVideo[i].viewCount - parseInt(ar[i].statistics.viewCount);
+					if(parseInt(listVideo[i].viewCount)<0)
+						parseInt(listVideo[i].viewCount) = 0;
+					listVideo[i].delta = listVideo[i].delta - (parseInt(ar[i].statistics.likeCount) - parseInt(ar[i].statistics.dislikeCount));											
+				}	
+				var list = 	listVideo;	
+				drawChart();
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				alert(jqXHR.status);
+				alert(jqXHR.statusText);
+				alert(jqXHR.responseText);
+			},							
+		})
+}
+function stringJSON(s){
+	var res='';
+	for (var j = 0; j < s.length-1; j++) {		
+		if ((s[j]+s[j+1] != ' "') && (s[j]+s[j+1] != '""')) {
+			res = res + s[j];			
+		}else{
+			j++;
+			if(s[j]+s[j+1] != '""')
+				res = res + '"';
+		}
+			
+	}	
+	res = res + s[s.length-1];
+	return res;
 }
 function sortChart(){	
 	listVideo.sort(compareName);
@@ -207,6 +275,7 @@ function drawChart(){
 	}
 	document.getElementById("chartName").innerHTML = _html;	
 	transition();
+	counterScreen++;
 }
 function getFutureIndex(){
 	var res;
@@ -344,7 +413,8 @@ function drawPlus(){
 			deltaCount = " (-"+Math.abs(deltaCount)+")";
 	}else
 		deltaCount = "";
-	str = str + deltaCount;
+	if(!(counterScreen>2 || counterScreen<=0))
+		str = str + deltaCount;
 	ctx.fillText(str,cx, 40); 
 	sumLikeCountSave = sumLikeCount;
 }
@@ -416,7 +486,8 @@ function drawMinus(){
 			deltaCount = " ("+deltaCount+")";
 	}else
 		deltaCount = "";
-	str = str + deltaCount;
+	if(!(counterScreen>2 || counterScreen<=0))
+		str = str + deltaCount;
 	ctx.fillText(str,cx, 40); 
 	sumDisCountSave = sumDisCount;
 }
@@ -482,7 +553,8 @@ function drawAbsolute(){
 					deltaCount = " ("+deltaCount+")";
 			}else
 				deltaCount = "";
-			str = str + deltaCount;
+			if(!(counterScreen>2 || counterScreen<=0))
+				str = str + deltaCount;
 			ctx.fillText(str,curX+20, curY+1.6*wY);
 			curY = curY + 2*wY;
 		}			
@@ -527,7 +599,8 @@ function drawAbsolute(){
 					deltaCount = " ("+deltaCount+")";
 			}else
 				deltaCount = "";
-			str = str + deltaCount;			
+			if(!(counterScreen>2 || counterScreen<=0))
+				str = str + deltaCount;			
 				
 			ctx.fillText(str,curX-20, curY+1.6*wY); 	
 			curY = curY + 2*wY;
@@ -549,7 +622,8 @@ function drawAbsolute(){
 			deltaCountLike = " (-"+Math.abs(deltaCountLike)+")";
 	}else
 		deltaCountLike = "";
-	str = str + deltaCountLike;
+	if(!(counterScreen>2 || counterScreen<=0))
+		str = str + deltaCountLike;
 	ctx.fillText(str,2*cx-20, 2*cy - 140); 	
 	
 	ctx.textAlign = "left";	
@@ -561,10 +635,14 @@ function drawAbsolute(){
 			deltaCountDis = " (-"+Math.abs(deltaCountDis)+")";
 	}else
 		deltaCountDis = "";
-	str = str + deltaCountDis;
+	if(!(counterScreen>2 || counterScreen<=0))
+		str = str + deltaCountDis;
 	ctx.fillText(str,10, 140); 
 }
 function startEffect(effectIndex){
+	if(counterScreen>3 || counterScreen<=0)
+		return;
+	
 	if(listVideo[0].likeCountSave==undefined )
 		return;
 	
