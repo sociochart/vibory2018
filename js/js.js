@@ -1,4 +1,4 @@
-var apikey = 'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
+var apikey = "AIzaSyCbIirSn4HEfs-F4mv0LRoQM_BtYellvRM";//'AIzaSyC8bAzJu8qBP1kTpg8QOwf4W5RQCLhHxtg';
 var listVideo = new Array;
 var listVideoSave = new Array;
 
@@ -200,10 +200,10 @@ function getStatHistory(){
 						listVideo[i].likeCount = 0;
 					listVideo[i].dislikeCount = listVideo[i].dislikeCount - parseInt(ar[i].statistics.dislikeCount);
 					if(parseInt(listVideo[i].dislikeCount)<0)
-						parseInt(listVideo[i].dislikeCount) = 0;
+						listVideo[i].dislikeCount = 0;
 					listVideo[i].viewCount = listVideo[i].viewCount - parseInt(ar[i].statistics.viewCount);
 					if(parseInt(listVideo[i].viewCount)<0)
-						parseInt(listVideo[i].viewCount) = 0;
+						listVideo[i].viewCount = 0;
 					listVideo[i].delta = listVideo[i].delta - (parseInt(ar[i].statistics.likeCount) - parseInt(ar[i].statistics.dislikeCount));											
 				}	
 				var list = 	listVideo;	
