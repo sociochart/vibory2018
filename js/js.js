@@ -49,63 +49,77 @@ function renderAction(){
 					},8000);
 }
 function iniListVideo(){
-	listVideo = new Array;
+	listVideo = new Array;	
 	listVideo[0] = new Object;
-	listVideo[0].url = "R6dg9YMPHvI";
-	listVideo[0].name = "БЕЛКОВСКИЙ СТАНИСЛАВ АЛЕКСАНДРОВИЧ";
-	listVideo[0].col = '#0317aa';
+	listVideo[0].url = "iqsc_fWFw10";
+	listVideo[0].name = "ВОЛОДИН ВЯЧЕСЛАВ ВИКТОРОВИЧ";
+	listVideo[0].col = '#dd4477';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[0].num = 0;
 	listVideo[1] = new Object;
-	listVideo[1].url = "iqsc_fWFw10";
-	listVideo[1].name = "ВОЛОДИН ВЯЧЕСЛАВ ВИКТОРОВИЧ";
-	listVideo[1].col = '#dd4477';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[1].url = "mW6Ok-NEZgY";
+	listVideo[1].name = "ЖИРИНОВСКИЙ ВЛАДИМИР ВОЛЬФОВИЧ";
+	listVideo[1].col = '#109618';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[1].num = 1;
 	listVideo[2] = new Object;
-	listVideo[2].url = "mW6Ok-NEZgY";
-	listVideo[2].name = "ЖИРИНОВСКИЙ ВЛАДИМИР ВОЛЬФОВИЧ";
-	listVideo[2].col = '#109618';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[2].url = "9RftoFlXKgk";
+	listVideo[2].name = "ЗЮГАНОВ ГЕННАДИЙ АНДРЕЕВИЧ";
+	listVideo[2].col = '#dc3912';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[2].num = 2;
 	listVideo[3] = new Object;
-	listVideo[3].url = "9RftoFlXKgk";
-	listVideo[3].name = "ЗЮГАНОВ ГЕННАДИЙ АНДРЕЕВИЧ";
-	listVideo[3].col = '#dc3912';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[3].url = "1gHVqD9tLgw";
+	listVideo[3].name = "КАСЬЯНОВ МИХАИЛ МИХАЙЛОВИЧ";
+	listVideo[3].col = '#994499';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[3].num = 3;
 	listVideo[4] = new Object;
-	listVideo[4].url = "1gHVqD9tLgw";
-	listVideo[4].name = "КАСЬЯНОВ МИХАИЛ МИХАЙЛОВИЧ";
-	listVideo[4].col = '#994499';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[4].url = "EZLRQLxWnTQ";
+	listVideo[4].name = "МАЛЬЦЕВ ВЯЧЕСЛАВ ВЯЧЕСЛАВОВИЧ";
+	listVideo[4].col = '#66aa00';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[4].num = 4;
 	listVideo[5] = new Object;
-	listVideo[5].url = "EZLRQLxWnTQ";
-	listVideo[5].name = "МАЛЬЦЕВ ВЯЧЕСЛАВ ВЯЧЕСЛАВОВИЧ";
-	listVideo[5].col = '#66aa00';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[5].url = "QIguxHfX7TY";
+	listVideo[5].name = "МЕДВЕДЕВ ДМИТРИЙ АНАТОЛЬЕВИЧ";
+	listVideo[5].col = '#0099c6';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[5].num = 5;
 	listVideo[6] = new Object;
-	listVideo[6].url = "QIguxHfX7TY";
-	listVideo[6].name = "МЕДВЕДЕВ ДМИТРИЙ АНАТОЛЬЕВИЧ";
-	listVideo[6].col = '#0099c6';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[6].url = "3myt_pJVpy4";
+	listVideo[6].name = "МИРОНОВ СЕРГЕЙ МИХАЙЛОВИЧ";
+	listVideo[6].col = '#22aa99';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[6].num = 6;
 	listVideo[7] = new Object;
-	listVideo[7].url = "3myt_pJVpy4";
-	listVideo[7].name = "МИРОНОВ СЕРГЕЙ МИХАЙЛОВИЧ";
-	listVideo[7].col = '#22aa99';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[7].url = "SB7tXrAmHnw";
+	listVideo[7].name = "НАВАЛЬНЫЙ АЛЕКСЕЙ АНАТОЛЬЕВИЧ";
+	listVideo[7].col = '#990099';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[7].num = 7;
 	listVideo[8] = new Object;
-	listVideo[8].url = "SB7tXrAmHnw";
-	listVideo[8].name = "НАВАЛЬНЫЙ АЛЕКСЕЙ АНАТОЛЬЕВИЧ";
-	listVideo[8].col = '#990099';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[8].url = "rgGaAfkjTN0";
+	listVideo[8].name = "ПУТИН ВЛАДИМИР ВЛАДИМИРОВИЧ";
+	listVideo[8].col = '#3366cc';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[8].num = 8;
 	listVideo[9] = new Object;
-	listVideo[9].url = "rgGaAfkjTN0";
-	listVideo[9].name = "ПУТИН ВЛАДИМИР ВЛАДИМИРОВИЧ";
-	listVideo[9].col = '#3366cc';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[9].url = "7ZzHTs6hdxE";
+	listVideo[9].name = "СОБЧАК КСЕНИЯ АНАТОЛЬЕВНА";
+	listVideo[9].col = '#d800ff';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[9].num = 9;
 	listVideo[10] = new Object;
-	listVideo[10].url = "7ZzHTs6hdxE";
-	listVideo[10].name = "СОБЧАК КСЕНИЯ АНАТОЛЬЕВНА";
-	listVideo[10].col = '#d800ff';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[10].url = "nssj0wVkmCM";
+	listVideo[10].name = "СОБЯНИН СЕРГЕЙ СЕМЕНОВИЧ";
+	listVideo[10].col = '#ff9900';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[10].num = 10;
 	listVideo[11] = new Object;
-	listVideo[11].url = "nssj0wVkmCM";
-	listVideo[11].name = "СОБЯНИН СЕРГЕЙ СЕМЕНОВИЧ";
-	listVideo[11].col = '#ff9900';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[11].url = "tfsp8lX2ZAw";
+	listVideo[11].name = "ХОДОРКОВСКИЙ МИХАИЛ БОРИСОВИЧ";
+	listVideo[11].col = '#b82e2e';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[11].num = 11;
 	listVideo[12] = new Object;
-	listVideo[12].url = "tfsp8lX2ZAw";
-	listVideo[12].name = "ХОДОРКОВСКИЙ МИХАИЛ БОРИСОВИЧ";
-	listVideo[12].col = '#b82e2e';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[12].url = "UJGmE9rg15M";
+	listVideo[12].name = "ЯВЛИНСКИЙ ГРИГОРИЙ АЛЕКСЕЕВИЧ";
+	listVideo[12].col = '#316395';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[12].num = 12;
 	listVideo[13] = new Object;
-	listVideo[13].url = "UJGmE9rg15M";
-	listVideo[13].name = "ЯВЛИНСКИЙ ГРИГОРИЙ АЛЕКСЕЕВИЧ";
-	listVideo[13].col = '#316395';// + ((Math.random() * 0x1000000) | 0x1000000).toString(16).substr(1);
+	listVideo[13].url = "R6dg9YMPHvI";
+	listVideo[13].name = "БЕЛКОВСКИЙ СТАНИСЛАВ АЛЕКСАНДРОВИЧ";
+	listVideo[13].col = '#0317aa';
+	listVideo[13].num = 13;
 }
 function setCanvasSize() {
 	var canvas = document.getElementById("graphContainer_plus");
@@ -136,7 +150,7 @@ function getStat(){
 	}	
 	
 	var _list = '';
-	listVideo.sort(compareName);
+	listVideo.sort(compareNum);
 	for(var i=0;i<listVideo.length;i++){
 		var zpt = ",";
 		if(i==listVideo.length-1)
@@ -147,7 +161,7 @@ function getStat(){
 	$.ajax({url: "https://www.googleapis.com/youtube/v3/videos?part=statistics&id="+_list+"&key="+apikey, type: "GET", async: true, 
 	success: function(data){ 
 				var ar = data.items;			
-				listVideo.sort(compareName);				
+				listVideo.sort(compareNum);				
 				var futureIndex = getFutureIndex();
 				//console.log("+++++++++++++++++++++++" + futureIndex);					
 				for(var i=0;i<ar.length;i++){
@@ -177,7 +191,7 @@ function getStatHistory(){
 	if(listVideo== undefined || listVideo.length<=0)
 		return;
 	
-	listVideo.sort(compareName);
+	listVideo.sort(compareNum);
 	
 	listVideoSave.slice(0,listVideoSave.length);
 	for(var i=0;i<listVideo.length;i++){
@@ -196,8 +210,9 @@ function getStatHistory(){
 				var s = stringJSON(json_.data);
 				//'{ "name":"John", "age":30, "car":null }'
 				var ar = JSON.parse(s);
-				listVideo.sort(compareName);								
-				//console.log("+++++++++++++++++++++++" + futureIndex);					
+				listVideo.sort(compareNum);								
+				//console.log("+++++++++++++++++++++++" + futureIndex);	
+				var lllll = listVideo;			
 				for(var i=0;i<ar.length;i++){					
 					listVideo[i].likeCount = listVideo[i].likeCount - parseInt(ar[i].statistics.likeCount);
 					if(parseInt(listVideo[i].likeCount)<0)
@@ -252,6 +267,10 @@ function sortChart(){
 function compareName(a, b){
 	if (a.name > b.name) return 1;
 	if (a.name < b.name) return -1;	
+}
+function compareNum(a, b){
+	if (a.num > b.num) return 1;
+	if (a.num < b.num) return -1;	
 }
 function compareDislikeCount(a, b){
 	if (parseInt(a.dislikeCount) < parseInt(b.dislikeCount)) return 1;
