@@ -4,11 +4,11 @@ a:hover{ cursor:pointer}
 
 #title{ width:100%; text-align:center; font-family:Tahoma, Geneva, sans-serif; font-size:16pt; font-weight:bold; padding:10px 0px 0px 0px;}
 
-#chartName{ width:20%; min-width:300px; padding:10px; vertical-align:middle;}
+#chartName{ width:20%; min-width:300px; padding:5px 10px 10px 10px; vertical-align:middle; position:relative}
 .chartNameContainer{ display:table; width:100%; text-align:left; margin-bottom:4px; vertical-align:middle;}
-.chartNameCol{width:40pt; height:40pt;float:left; margin-right:10px; border-radius:40pt; margin-top:0px; position:relative;}
-.chartNameCol span{ color:#fff; font-weight:bold; position:absolute; width:40px; top:16px; left:5px; font-family:Helvetica; text-align:center; font-size:14px}
-.chartNameName{ font-family:Tahoma, Geneva, sans-serif; font-size:14pt; font-weight:bold; padding-top:6pt;}
+.chartNameCol{width:35pt; height:35pt;float:left; margin-right:10px; border-radius:35pt; margin-top:0px; position:relative;}
+.chartNameCol span{ color:#fff; font-weight:bold; position:absolute; width:35px; top:13px; left:5px; font-family:Helvetica; text-align:center; font-size:14px}
+.chartNameName{ font-family:Tahoma, Geneva, sans-serif; font-size:14pt; font-weight:bold; padding-top:1pt;}
 .chartNameName span{ display:block; font-size:14px; color:#666}
 
 .graphContainer{}
